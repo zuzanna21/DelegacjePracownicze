@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:DelegacjePracownicze.ViewModels"
+             x:Class="DelegacjePracownicze.Pages.LoginPage"
+             BackgroundColor="#583CFA" NavigationPage.HasNavigationBar="False" >
+    
+    
+    <ContentPage.BindingContext>
+        <vm:LoginViewModel />
+    </ContentPage.BindingContext>
+
+
+
+    <StackLayout Padding="20" >
+
+
+        <Frame Padding="20,100,20,50" BackgroundColor="white" CornerRadius="15" Margin="0,50,0,0" >
+
+            <StackLayout Padding="0">
+
+                <Image Source="login_image2.jpg" Margin="0,0,0,50"/>
+                <Label Text="Zaloguj się" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" Margin="0,0,0,10" FontSize="20"/>
+                <Entry Placeholder="Email"  PlaceholderColor="Black"
+                   Text="{Binding Email}" 
+                   Keyboard="Email"
+                    TextColor="Black"/>
+
+            <Entry Placeholder="Hasło"  PlaceholderColor="Black"
+                   Text="{Binding Password}" 
+                   IsPassword="True"
+                    TextColor="Black"/>
+
+            <Button Text="Zaloguj się" 
+                    Command="{Binding LoginCommand}" 
+               
+                     CornerRadius="15"
+                Margin="0,30,0,10"
+                    Background="Black"
+                    TextColor="White"/>
+
+                <Label Text="{Binding ErrorMessage}" 
+                   TextColor="Red"
+               
+                   IsVisible="{Binding ErrorMessage, Converter={StaticResource StringIsNotEmptyConverter}}" />
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>

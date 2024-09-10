@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DelegacjePracownicze.Pages.BillsPage"
+             Title="Rachunki">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Row="0"  Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Text="Numer&#x0a;rachunku" Grid.Column="0" FontAttributes="Bold" HorizontalOptions="Center" />
+
+                <Label Text="Kategoria" Grid.Column="1" FontAttributes="Bold" HorizontalOptions="Center"  VerticalOptions="Center"/>
+
+
+                <Label Text="Wartość&#x0a;brutto" Grid.Column="2" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"
+               />
+
+                <Label Text="Status&#x0a;zwrotu" Grid.Column="3" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"
+/>
+            </Grid>
+            
+        </StackLayout>
+
+        <CollectionView ItemsSource="{Binding Bills}" Grid.Row="1">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10" Margin="10" BorderColor="LightGray">
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Text="{Binding BillId}" Grid.Column="0" Margin="10,0,0,0"/>
+                            <Label Text="{Binding Category.CategoryName}" Grid.Column="1" HorizontalOptions="Center"/>
+                            <Label Text="{Binding GrossValue}" Grid.Column="2" HorizontalOptions="Center"/>
+                            <Label Text="{Binding Return.ReturnStatus}" Grid.Column="3" HorizontalOptions="Center">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding Return.ReturnStatus}" Value="odrzucony">
+                                        <Setter Property="TextColor" Value="Red" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label" Binding="{Binding Return.ReturnStatus}" Value="przetwarzany">
+                                        <Setter Property="TextColor" Value="#DB9C00" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label" Binding="{Binding Return.ReturnStatus}" Value="zatwierdzony">
+                                        <Setter Property="TextColor" Value="Green" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                          
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+    
+</ContentPage>

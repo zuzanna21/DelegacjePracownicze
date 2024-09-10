@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:DelegacjePracownicze.ViewModels"
+             x:Class="DelegacjePracownicze.Pages.AddSettlementPage"
+             Title="Dodaj rozliczenie">
+
+    <ContentPage.BindingContext>
+        <vm:AddSettlementViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <StackLayout Padding="20">
+
+            <!--Settlement-->
+            <Label Text="Delegacja" TextColor="#580CFA" FontAttributes="Bold"/>
+            <Picker ItemsSource="{Binding Delegations}" 
+                    ItemDisplayBinding="{Binding DelegationCountry}" 
+                    SelectedItem="{Binding SelectedDelegation}" 
+                    Title="Wybierz delegację" Margin="10,0,10,0"/>
+
+            <Label Text="{Binding DelegationErrorMessage}" 
+                    TextColor="Red"
+                    IsVisible="{Binding IsDelegationErrorVisible}" 
+                    Margin="10,0,10,5"/>
+
+            <Label Text="Numer rozliczenia" TextColor="#580CFA" Margin="0,5,0,0" FontAttributes="Bold"/>
+            <Entry Placeholder="Wpisz numer rozliczenia"
+                   Text="{Binding SettlementId, Mode=TwoWay}"
+                   Keyboard="Numeric" 
+                   Margin="10,0,10,5" />
+            <Label Text="{Binding SettlementErrorMessage}" 
+                   TextColor="Red"
+                   IsVisible="{Binding IsSettlementErrorVisible}" 
+                   Margin="10,0,10,5"/>
+
+            <Label Text="Podpięte rachunki:" TextColor="#580CFA" Margin="0,5,0,20" FontAttributes="Bold"/>
+
+            <!--Saved bills collection-->
+
+            <CollectionView ItemsSource="{Binding SavedBills}" SelectionMode="Single" SelectedItem="{Binding SelectedBill}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="5" BorderColor="LightGray">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="80" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Margin="10,5,0,0" Text="{Binding BillId, StringFormat='Numer rachunku: {0}'}" FontAttributes="Bold" Grid.Row="0"/>
+                                <StackLayout Grid.Column="0" Grid.Row="1" Margin="15,5,0,5">
+                                    <Label Text="{Binding SellerName, StringFormat='Nazwa sprzedawcy: {0}'}" />
+                                    <Label Text="{Binding Category.CategoryName, StringFormat='Kategoria: {0}'}" />
+                                    <Label Text="{Binding GrossValue, StringFormat='Wartość brutto: {0:C}'}" />
+                                </StackLayout>
+                                <Button  ImageSource="edit_icon.png" Padding="20" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent"  Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AddSettlementViewModel}}, Path=EditBillCommand}" CommandParameter="{Binding .}" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!--Bill form-->
+            <Frame BackgroundColor="#F0F0F0" Padding="20" BorderColor="Transparent" IsVisible="{Binding IsBillFormVisible}" Margin="0,15,0,0">
+                <StackLayout>
+                    <Label Text="Numer rachunku" TextColor="#580CFA" />
+                    <Entry Placeholder="Wpisz numer rachunku"
+                           Text="{Binding IdBill, Mode=TwoWay}"
+                           Keyboard="Numeric" Margin="10,0,10,0"/>
+                    <Label Text="{Binding BillErrorMessage}" 
+                           TextColor="Red"
+                           IsVisible="{Binding IsBillErrorVisible}" Margin="10,0,10,10"/>
+
+                    <Label Text="Kategoria" TextColor="#580CFA" Margin="0,5,0,0"/>
+                    <Picker Title="Wybierz kategorię"
+                            ItemsSource="{Binding Categories}"
+                            SelectedItem="{Binding SelectedCategory}"
+                            ItemDisplayBinding="{Binding CategoryName}"
+                            Margin="10,0,10,0" />
+                    <Label Text="{Binding SelectedCategoryErrorMessage}" 
+         TextColor="Red"
+         IsVisible="{Binding IsSelectedCategoryErrorVisible}" Margin="10,0,10,10"/>
+
+                    <Label Text="Nazwa sprzedawcy" TextColor="#580CFA" Margin="0,5,0,0"/>
+                    <Entry Placeholder="Wpisz nazwę sprzedawcy" Text="{Binding SellerName, Mode=TwoWay}" Margin="10,0,10,5"/>
+                    <Label Text="{Binding SellerNameErrorMessage}" 
+                           TextColor="Red"
+                           IsVisible="{Binding IsSellerNameErrorVisible}" Margin="10,0,10,5"/>
+
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Adres sprzedawcy " TextColor="#580CFA" />
+                                <Span Text="(ulica oraz numer budynku)" TextColor="Gray" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Entry Placeholder="Wpisz adres sprzedawcy" Text="{Binding SellerAddress, Mode=TwoWay}" Margin="10,0,10,5"/>
+                    <Label Text="{Binding SellerAddressErrorMessage}" 
+                           TextColor="Red"
+                           IsVisible="{Binding IsSellerAddressErrorVisible}" Margin="10,0,10,5"/>
+
+                    <Label Text="Kraj sprzedawcy" TextColor="#580CFA"/>
+                    <Entry Placeholder="Wpisz kraj sprzedawcy" Text="{Binding SellerCountry, Mode=TwoWay}" Margin="10,0,10,5"/>
+                    <Label Text="{Binding SellerCountryErrorMessage}" 
+                           TextColor="Red"
+                           IsVisible="{Binding IsSellerCountryErrorVisible}" Margin="10,0,10,5"/>
+
+                    <Label Text="Miasto sprzedawcy" TextColor="#580CFA"/>
+                    <Entry Placeholder="Wpisz miasto sprzedawcy" Text="{Binding SellerCity, Mode=TwoWay}" Margin="10,0,10,5"/>
+                    <Label Text="{Binding SellerCityErrorMessage}" 
+                           TextColor="Red"
+                           IsVisible="{Binding IsSellerCityErrorVisible}" Margin="10,0,10,5"/>
+
+                    <Label Text="Kod pocztowy" TextColor="#580CFA"/>
+                    <Entry Placeholder="Wpisz kod pocztowy sprzedawcy" Text="{Binding SellerPostalCode, Mode=TwoWay}" Margin="10,0,10,5"/>
+                    <Label Text="{Binding SellerPostalCodeErrorMessage}" 
+                           TextColor="Red"
+                           IsVisible="{Binding IsSellerPostalCodeErrorVisible}" Margin="10,0,10,5"/>
+
+                    <Label Text="NIP" TextColor="#580CFA"/>
+                    <Entry Placeholder="Wpisz NIP sprzedawcy" Text="{Binding SellerTaxId, Mode=TwoWay}" Margin="10,0,10,5"/>
+                    <Label Text="{Binding SellerTaxIdErrorMessage}" 
+                           TextColor="Red"
+                           IsVisible="{Binding IsSellerTaxIdErrorVisible}" Margin="10,0,10,5"/>
+
+                    <Label Text="Stawka VAT" TextColor="#580CFA"/>
+                    <Entry Placeholder="Wpisz stawka VAT" Text="{Binding VatRate, Mode=TwoWay}"  Margin="10,0,10,5"/>
+                    <Label Text="{Binding VatRateErrorMessage}" 
+TextColor="Red"
+IsVisible="{Binding IsVatRateErrorVisible}" Margin="10,0,10,5"/>
+
+                    <Label Text="Wartość netto" TextColor="#580CFA"/>
+
+                    <Entry Placeholder="Wartość netto" Text="{Binding NetValue, Mode=TwoWay}" Keyboard="Numeric" TextChanged="Entry_TextChanged" Margin="10,0,10,5"/>
+                    <Label Text="{Binding NetValueErrorMessage}" 
+                           TextColor="Red"
+                           IsVisible="{Binding IsNetValueErrorVisible}" Margin="10,0,10,5"/>
+
+                    <Label Text="VAT" TextColor="#580CFA"/>
+                    <Entry Placeholder="VAT" Text="{Binding Vat, Mode=TwoWay}" Keyboard="Numeric" TextChanged="Entry_TextChanged" Margin="10,0,10,5"/>
+                    <Label Text="{Binding VatValueErrorMessage}" 
+       TextColor="Red"
+       IsVisible="{Binding IsVatValueErrorVisible}" Margin="10,0,10,5"/>
+
+                    <Label Text="Wartość brutto" TextColor="#580CFA"/>
+                    <Entry Placeholder="Wartość brutto" Text="{Binding GrossValue, Mode=TwoWay}" Keyboard="Numeric" TextChanged="Entry_TextChanged" Margin="10,0,10,5"/>
+                    <Label Text="{Binding GrossValueErrorMessage}" 
+                           TextColor="Red"
+                           IsVisible="{Binding IsGrossValueErrorVisible}" Margin="10,0,10,5"/>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,5,0,0">
+                        <Button Text="Anuluj"
+                                Command="{Binding CancelBillCommand}" 
+                                HorizontalOptions="Center"
+                                Margin="10,10,5,10"
+                                CornerRadius="15"
+                                BackgroundColor="Transparent"
+                                TextColor="#580CFA"
+                                BorderWidth="1"
+                                BorderColor="#580CFA"/>
+
+                        <Button Text="Zapisz rachunek"
+                                Command="{Binding SaveBillCommand}" 
+                                HorizontalOptions="Center"
+                                Margin="5,10,10,10"
+                                CornerRadius="15"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!--Buttons-->
+            <Button Text="Podepnij nowy rachunek"
+                    Command="{Binding AddBillCommand}" 
+                    ImageSource="plus_icon.png"
+                    ContentLayout="Right, 10"
+                    HorizontalOptions="Center"
+                    Margin="10,20,10,20"
+                    Padding="20,10"
+                    Background="White"
+                    TextColor="#580CFA"
+                    BorderColor="#580CFA"
+                    BorderWidth="1"
+                    CornerRadius="15"
+                    IsVisible="{Binding IsAddBillButtonVisible}"/>
+            <Button Text="Zapisz rozliczenie"
+                    Command="{Binding SaveSettlementCommand}"
+                    Margin="0,20,0,0"
+                    CornerRadius="15"/>
+
+            <Button Text="Test Connection" Command="{Binding TestConnectionCommand}" BackgroundColor="Transparent" TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Center" Margin="10"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

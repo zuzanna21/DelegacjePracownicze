@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="DelegacjePracownicze.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:DelegacjePracownicze.Pages"
+    Shell.FlyoutBehavior="Disabled"
+    Title="DelegacjePracownicze">
+
+    <!--<ShellContent x:Name="LoginPageShell"
+                  Route="LoginPage"
+                  ContentTemplate="{DataTemplate pages:LoginPage}" />
+
+    <TabBar x:Name="MainTabBar" IsVisible="False">
+        <Tab Title="Strona Główna" Icon="settlement_icon.png">
+            <ShellContent Route="MainPage" ContentTemplate="{DataTemplate pages:MainPage}" />
+        </Tab>
+        <Tab Title="Profil" Icon="profile_icon.png">
+            <ShellContent Route="ProfilePage"  ContentTemplate="{DataTemplate pages:ProfilePage}" />
+        </Tab>
+    </TabBar>-->
+
+    <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate pages:LoginPage}" />
+    <ShellContent Title="Bills" ContentTemplate="{DataTemplate pages:BillsPage}" Route="BillsPage"/>
+    <!--<ShellContent Route="MainPage" ContentTemplate="{DataTemplate pages:MainPage}" />
+    <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate pages:ProfilePage}" />-->
+
+    <TabBar x:Name="MainTabBar"  IsVisible="False">
+        <Tab Title="Strona Główna" Icon="settlement_icon.png">
+            <ShellContent  Route="MainPage" ContentTemplate="{DataTemplate pages:MainPage}" />
+        </Tab>
+        <Tab Title="Profil" Icon="profile_icon.png">
+            <ShellContent Route="ProfilePage"  ContentTemplate="{DataTemplate pages:ProfilePage}" />
+        </Tab>
+    </TabBar>
+
+</Shell>

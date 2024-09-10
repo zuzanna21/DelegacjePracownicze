@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DelegacjePracownicze.Pages.ProfilePage"
+             xmlns:vm="clr-namespace:DelegacjePracownicze.ViewModels"
+             Title="Mój profil">
+
+   
+     
+    <ScrollView >
+        <VerticalStackLayout  Padding="30, 20, 30, 0" Spacing="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+            <!-- Zdjęcie profilowe -->
+            <Image Source="avatar.png" 
+                   WidthRequest="180" 
+                   HeightRequest="180"
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Start"
+                   Margin="0,0,0,10"/>
+
+            <!-- Imię i nazwisko -->
+            <Label x:Name="NameLabel" 
+                   Text="{Binding FullName}"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Start"
+                    Margin="0, 0, 0, 0"/>
+
+            <Label x:Name="Position"
+                   Text="{Binding Position}"
+                   FontSize="18"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Start"
+                   TextColor="#580CFA"
+                   Margin="0, 0, 0, 10"/>
+
+            <!-- Dane użytkownika w ramkach -->
+
+            <Frame CornerRadius="10" Padding="10" BackgroundColor="#EBEBEB" BorderColor="Transparent" Margin="0,0,0,5">
+                <StackLayout>
+                    <Label Text="Adres e-mail: " FontAttributes="Bold" TextColor="#2900B0" Margin="0,0,0,5"/>
+                    <Label Text="{Binding Email}" />
+                </StackLayout>
+            </Frame>
+
+            <Frame CornerRadius="10" Padding="10" BackgroundColor="#EBEBEB" BorderColor="Transparent" Margin="0,0,0,5">
+                <StackLayout>
+                    <Label Text="Numer telefonu: " FontAttributes="Bold" TextColor="#2900B0" Margin="0,0,0,5"/>
+                    <Label Text="{Binding PhoneNumber}" />
+                </StackLayout>
+            </Frame>
+
+            <Frame CornerRadius="10" Padding="10" BackgroundColor="#EBEBEB" BorderColor="Transparent" Margin="0,0,0,5">
+                <StackLayout>
+                    <Label Text="Adres zamieszkania: " FontAttributes="Bold" TextColor="#2900B0" Margin="0,0,0,5"/>
+                    <Label Text="{Binding FullAddress}" />
+                </StackLayout>
+            </Frame>
+
+
+            <!-- Przycisk Wylogowania -->
+            <Button Text="Wyloguj się" 
+                    TextColor="White" 
+                    BackgroundColor="#580CFA"
+                    Padding="40,15"
+                    Margin="0,10,0,0"
+                    Command="{Binding LogoutCommand}"
+                    VerticalOptions="End"
+                    HorizontalOptions="Center"
+                    CornerRadius="15"/>
+
+            <!-- Przycisk Resetowania Hasła -->
+            <!--<Button Text="Resetuj Hasło" 
+                    TextColor="Gray" 
+                    BackgroundColor="Transparent"
+                    Command="{Binding ResetPasswordCommand}"
+                    VerticalOptions="End"
+                    HorizontalOptions="Center"/>-->
+           
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>
